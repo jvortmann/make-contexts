@@ -8,7 +8,7 @@
 head := $(shell git log --pretty=format:"%h" HEAD -1)
 last_tag := $(shell git describe --tags $(git rev-list --tags --skip=1 --max-count=1) | cut -f1 -d-)
 interval := $(last_tag)..$(head)
-changes_file := $(abspath ../../tmp/$(interval))
+changes_file := $(abspath /tmp/$(interval))
 annotation_file := $(abspath $(changes_file).annotation)
 
 feature_pattern = "feature:"
