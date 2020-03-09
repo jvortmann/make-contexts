@@ -12,13 +12,13 @@ CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 .PHONY: help $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to
 
 $(CONTEXTS_TASKS):
-	@$(MAKE) $(@F) -C tasks/contexts/$(@D)/
+	@$(MAKE) $(@F) -C contexts/$(@D)/
 
 $(CONTEXTS):
-	@$(MAKE) -C tasks/contexts/$@
+	@$(MAKE) -C contexts/$@
 
 $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION):
-	@$(MAKE) $(@F) -C tasks/contexts/$(@D)/
+	@$(MAKE) $(@F) -C contexts/$(@D)/
 
 help: $(CONTEXTS_HELP) how_to
 contexts: $(CONTEXTS_DESCRIPTION) how_to

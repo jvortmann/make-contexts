@@ -1,6 +1,6 @@
 context_file = $(word 1,$(abspath $(MAKEFILE_LIST)))
-context_name = $(shell echo $(dir $(context_file)) | sed -E "s/^.*tasks\/contexts\/(.*)\/$$/\1/")
-base_path = $(shell echo $(dir $(context_file)) | sed -E "s/(^.*)tasks\/contexts\/.*\/$$/\1/")
+context_name = $(shell echo $(dir $(context_file)) | sed -E "s/^.*\/contexts\/(.*)\/$$/\1/")
+base_path = $(shell echo $(dir $(context_file)) | sed -E "s/(^.*)\/contexts\/.*\/$$/\1/")
 
 .PHONY: help description
 
