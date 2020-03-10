@@ -1,4 +1,4 @@
--include ../prerequisites.mk
+-include ../prerequisites/tasks.mk
 
 ##>> check last git changes, create tags, tag annotations...
 

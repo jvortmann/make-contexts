@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+export DISPLAY=:0
+
+cd ../../..
+
+bundle exec rake parallel_tests:generate_cucumber_knapsack_file
+bundle exec rake assets:precompile
+
+bundle exec rake "knapsack:cucumber[--profile first_run]" || \
+  bundle exec cucumber --profile second_run || \
+  bundle exec cucumber --profile third_run

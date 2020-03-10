@@ -1,4 +1,4 @@
--include ../prerequisites.mk
+-include ../prerequisites/tasks.mk
 
 ##>> todo list
 

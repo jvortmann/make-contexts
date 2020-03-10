@@ -1,0 +1,4 @@
+.PHONY: yarn
+
+yarn:
+	@yarn

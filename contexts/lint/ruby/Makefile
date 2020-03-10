@@ -1,0 +1,20 @@
+-include ../../prerequisites/tasks.mk
+-include ../../prerequisites/ruby.mk
+
+##>> run lint for ruby
+
+.DEFAULT_GOAL := all
+.PHONY: all
+
+export RAILS_ENV=test
+
+RUBY_FILES = $(abspath $(addprefix $(CURDIR)/../../,app config lib features spec))
+RUBOCOP = bundle exec rubocop
+
+## all (default): run lint for ruby files
+all: bundle
+	@$(RUBOCOP) $(RUBY_FILES)
+
+## autocorrect: run lint for ruby files and autocorrect errors
+autocorrect: bundle
+	@$(RUBOCOP) $(RUBY_FILES) --auto-correct
