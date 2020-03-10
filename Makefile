@@ -1,5 +1,9 @@
 .DEFAULT_GOAL := help
 
+contexts_path = $(dir $(realpath $(MAKEFILE_LIST)))
+base_path = $(realpath $(contexts_path)/../)
+setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
+
 define CONTEXTS
 	git \
 	todo
@@ -12,13 +16,13 @@ CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 .PHONY: help $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to
 
 $(CONTEXTS_TASKS):
-	@$(MAKE) $(@F) -C contexts/$(@D)/
+	@$(MAKE) $(@F) -C $(setup_folder)/contexts/$(@D)/
 
 $(CONTEXTS):
-	@$(MAKE) -C contexts/$@
+	@$(MAKE) -C $(setup_folder)/contexts/$@
 
 $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION):
-	@$(MAKE) $(@F) -C contexts/$(@D)/
+	@$(MAKE) $(@F) -C $(setup_folder)/contexts/$(@D)/
 
 help: $(CONTEXTS_HELP) how_to
 contexts: $(CONTEXTS_DESCRIPTION) how_to
@@ -33,4 +37,4 @@ how_to:
 
 ## setup_tasks: setup this Makefile to project home folder
 setup_tasks:
-	ln -sfv $(abspath $(MAKEFILE_LIST)) $(abspath ../Makefile)
+	ln -sfv $(abspath $(MAKEFILE_LIST)) $(base_path)/Makefile
