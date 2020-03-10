@@ -5,6 +5,9 @@
 .DEFAULT_GOAL := search
 .PHONY: search all todo important warning note hack
 
+context_path = $(word 1, $(dir $(realpath $(MAKEFILE_LIST))))
+base_path = $(realpath $(context_path)/../../../)
+
 todo_pattern = "TODO"
 important_pattern = "IMPORTANT"
 warning_pattern = "WARNING"
