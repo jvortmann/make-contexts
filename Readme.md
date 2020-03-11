@@ -7,7 +7,8 @@ curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/M
 ```
 
 Then run `make -C tasks setup_makefile` to symlink it to your project root.
-`make help` will list all available contexts (this is the default tasks).
+`make help` will list all available tasks of the main Makefile to setup and update it and also to setup the contexts.
+`make` (default) or `make contexts_help` will list all available contexts' help.
 
 # Contexts
 
@@ -36,3 +37,13 @@ Any `Makefile` that lives inside the `contexts` folder following the same struct
 be displayed as available.
 
 Therefore, you can create your own `Makefile`s and run them with the same infrastructure.
+
+The following comment can be used to set the description/purpose of the context.
+```
+##>> This define the description/purpose of the Makefile
+```
+
+The following comment can be used to explain a task.
+```
+## {task_name}: {text to explaing what the task do}
+```

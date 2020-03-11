@@ -1,9 +1,15 @@
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL := contexts_help
+
+##>> Makefile
 
 contexts_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
 main_makefile = $(word 1,$(abspath $(MAKEFILE_LIST)))
-export base_path = $(realpath $(contexts_path)/../)
+context_file = $(main_makefile)
+context_name = main
 setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
+export base_path = $(realpath $(contexts_path)/../)
+
+-include $(contexts_path)/prerequisites/tasks.mk
 
 CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*contexts/.*/Makefile" | cut -d/ -f3- | sed -E "s/\/Makefile//")
 CONTEXTS_TASKS = $(sort $(addsuffix /%,$(CONTEXTS)))
@@ -12,7 +18,7 @@ CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 
 DEST_ERROR = $(error "Destination folder was not defined. Use 'dest="base_folder_for_context"' to point to where the contexts are")
 
-.PHONY: help $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to
+.PHONY: $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to setup_makefile update_makefile setup_context
 
 $(CONTEXTS_TASKS):
 	@$(MAKE) $(@F) -C $(setup_folder)/$(@D)/
@@ -23,7 +29,7 @@ $(CONTEXTS):
 $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION):
 	@$(MAKE) $(@F) -C $(setup_folder)/$(@D)/
 
-help: $(CONTEXTS_HELP) how_to
+contexts_help: $(CONTEXTS_HELP) how_to
 contexts: $(CONTEXTS_DESCRIPTION) how_to
 
 how_to:
@@ -40,12 +46,12 @@ setup_makefile: $(base_path)/Makefile
 $(base_path)/Makefile:
 	@ln -sfv $(main_makefile) $(base_path)/Makefile
 
-## update_makefile: download main makefile latest version
+## update_makefile: download main Makefile latest version
 update_makefile:
 	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/Makefile -o $(main_makefile) -f 2>/dev/null
 
 context = $(shell echo $@ | sed -E "s/^setup_context\///")
-## setup_context: copy context's Makefile locally
+## setup_context/{context}: setup specific context's Makefile locally
 setup_context/%: 
 	$(if ${dest},,${DEST_ERROR})
 	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(context)/Makefile -o /tmp/contexts/$(context)/Makefile -f --create-dirs 2>/dev/null \
