@@ -2,12 +2,12 @@
 
 ##>> Makefile
 
-export contexts_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
+export contexts_path = $(addsuffix contexts,$(word 1,$(dir $(realpath $(MAKEFILE_LIST)))))
 main_makefile = $(word 1,$(abspath $(MAKEFILE_LIST)))
 context_file = $(main_makefile)
 context_name = main
 setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
-export base_path = $(realpath $(contexts_path)/../)
+export base_path = $(realpath $(contexts_path)/../../)
 
 -include $(contexts_path)/prerequisites/tasks.mk
 
@@ -44,10 +44,10 @@ setup_makefile: $(base_path)/Makefile prerequisites
 $(base_path)/Makefile:
 	@ln -sfv $(main_makefile) $(base_path)/Makefile
 
-prerequisites: $(contexts_path)/contexts/prerequisites/elixir.mk $(contexts_path)/contexts/prerequisites/javascript.mk $(contexts_path)/contexts/prerequisites/ruby.mk $(contexts_path)/contexts/prerequisites/tasks.mk
+prerequisites: $(contexts_path)/prerequisites/elixir.mk $(contexts_path)/prerequisites/javascript.mk $(contexts_path)/prerequisites/ruby.mk $(contexts_path)/prerequisites/tasks.mk
 
-$(contexts_path)/contexts/prerequisites/%:
-	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/contexts/prerequisites/$(@F) -f --create-dirs 2>/dev/null
+$(contexts_path)/prerequisites/%:
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/prerequisites/$(@F) -f --create-dirs 2>/dev/null
 
 ## update_makefile: download main Makefile latest version
 update_makefile:
@@ -57,8 +57,8 @@ context = $(shell echo $@ | sed -E "s/^setup_context\///")
 ## setup_context/{context}: setup specific context's Makefile locally
 setup_context/%: 
 	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(context)/Makefile -o /tmp/contexts/$(context)/Makefile -f --create-dirs 2>/dev/null \
-			&& mkdir -p $(contexts_path)/contexts/$(context)/ 2>&1 >/dev/null \
-			&& mv /tmp/contexts/$(context)/Makefile $(contexts_path)/contexts/$(context)/Makefile 2>&1 >/dev/null \
-			&& echo "Context downloaded to $(contexts_path)/contexts/$(context)/" \
+			&& mkdir -p $(contexts_path)/$(context)/ 2>&1 >/dev/null \
+			&& mv /tmp/contexts/$(context)/Makefile $(contexts_path)/$(context)/Makefile 2>&1 >/dev/null \
+			&& echo "Context downloaded to $(contexts_path)/$(context)/" \
 			|| echo "Context not found") \
 		&& rm -r /tmp/contexts/$(context) 2>&1 >/dev/null \
