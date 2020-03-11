@@ -47,7 +47,7 @@ $(base_path)/Makefile:
 prerequisites: $(contexts_path)/contexts/prerequisites/elixir.mk $(contexts_path)/contexts/prerequisites/javascript.mk $(contexts_path)/contexts/prerequisites/ruby.mk $(contexts_path)/contexts/prerequisites/tasks.mk
 
 $(contexts_path)/contexts/prerequisites/%:
-	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/contexts/prerequisites/$(@F) -f 2>/dev/null
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/contexts/prerequisites/$(@F) -f --create-dirs 2>/dev/null
 
 ## update_makefile: download main Makefile latest version
 update_makefile:
