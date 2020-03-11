@@ -46,10 +46,10 @@ setup_makefile: $(base_path)/Makefile prerequisites
 $(base_path)/Makefile:
 	@ln -sfv $(main_makefile) $(base_path)/Makefile
 
-prerequisites: $(contexts_path)/prerequisites/elixir.mk $(contexts_path)/prerequisites/javascript.mk $(contexts_path)/prerequisites/ruby.mk $(contexts_path)/prerequisites/tasks.mk
+prerequisites: $(contexts_path)/contexts/prerequisites/elixir.mk $(contexts_path)/contexts/prerequisites/javascript.mk $(contexts_path)/contexts/prerequisites/ruby.mk $(contexts_path)/contexts/prerequisites/tasks.mk
 
-$(contexts_path)/prerequisites/%:
-	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/prerequisites/$(@F) -f 2>/dev/null
+$(contexts_path)/contexts/prerequisites/%:
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/contexts/prerequisites/$(@F) -f 2>/dev/null
 
 ## update_makefile: download main Makefile latest version
 update_makefile:
