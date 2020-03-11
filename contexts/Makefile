@@ -9,6 +9,8 @@ CONTEXTS_TASKS = $(sort $(addsuffix /%,$(CONTEXTS)))
 CONTEXTS_HELP = $(sort $(addsuffix /help,$(CONTEXTS)))
 CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 
+DEST_ERROR = $(error "Destination folder was not defined. Use 'dest="base_folder_for_context"' to point to where the contexts are")
+
 .PHONY: help $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to
 
 $(CONTEXTS_TASKS):
@@ -36,3 +38,7 @@ setup_makefile: $(base_path)/Makefile
 
 $(base_path)/Makefile:
 	@ln -sfv $(word 1,$(abspath $(MAKEFILE_LIST))) $(base_path)/Makefile
+
+context_setup/%:
+	$(if ${dest},,${DEST_ERROR})
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(@F)/Makefile -o $(dest)/contexts/$(@F)/Makefile -f --create-dirs
