@@ -39,12 +39,13 @@ setup_makefile: $(base_path)/Makefile
 $(base_path)/Makefile:
 	@ln -sfv $(word 1,$(abspath $(MAKEFILE_LIST))) $(base_path)/Makefile
 
+context = $(shell echo $@ | sed -E "s/^setup_context\///")
 ## setup_context: copy context's Makefile locally
-setup_context/%:
+setup_context/%: 
 	$(if ${dest},,${DEST_ERROR})
-	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(@F)/Makefile -o /tmp/contexts/$(@F)/Makefile -f --create-dirs 2>/dev/null \
-			&& mkdir -p $(dest)/contexts/$(@F)/ 2>&1 >/dev/null \
-			&& mv /tmp/contexts/$(@F)/Makefile $(dest)/contexts/$(@F)/Makefile 2>&1 >/dev/null \
-			&& echo "Context downloaded to $(dest)/contexts/$(@F)/" \
+	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(context)/Makefile -o /tmp/contexts/$(context)/Makefile -f --create-dirs 2>/dev/null \
+			&& mkdir -p $(dest)/contexts/$(context)/ 2>&1 >/dev/null \
+			&& mv /tmp/contexts/$(context)/Makefile $(dest)/contexts/$(context)/Makefile 2>&1 >/dev/null \
+			&& echo "Context downloaded to $(dest)/contexts/$(context)/" \
 			|| echo "Context not found") \
-		&& rm -r /tmp/contexts/$(@F) 2>&1 >/dev/null \
+		&& rm -r /tmp/contexts/$(context) 2>&1 >/dev/null \
