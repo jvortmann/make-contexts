@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := help
 
 contexts_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
+main_makefile = $(word 1,$(abspath $(MAKEFILE_LIST)))
 export base_path = $(realpath $(contexts_path)/../)
 setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
 
@@ -37,7 +38,11 @@ how_to:
 setup_makefile: $(base_path)/Makefile
 
 $(base_path)/Makefile:
-	@ln -sfv $(word 1,$(abspath $(MAKEFILE_LIST))) $(base_path)/Makefile
+	@ln -sfv $(main_makefile) $(base_path)/Makefile
+
+## update_makefile: download main makefile latest version
+update_makefile:
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/Makefile -o $(main_makefile) -f 2>/dev/null
 
 context = $(shell echo $@ | sed -E "s/^setup_context\///")
 ## setup_context: copy context's Makefile locally
