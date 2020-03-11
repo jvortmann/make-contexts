@@ -1,5 +1,3 @@
--include prerequisites/tasks.mk
-
 .DEFAULT_GOAL := help
 
 contexts_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
