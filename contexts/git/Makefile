@@ -45,7 +45,7 @@ create_tag: $(annotation_file)
 	$(if $(strip $(tag)),,$(ERROR_EMPTY_TAG))
 	@git tag $(tag) -e --file=$(annotation_file)
 
-## changes (default): show changes from last tag to current HEAD
+## changes: show changes from last tag to current HEAD
 changes: $(changes_file)
 	@echo "Showing changes between $(interval):"
 	@echo
