@@ -3,8 +3,8 @@
 
 ##>> run unit tests for ruby
 
-.DEFAULT_GOAL := ruby
-.PHONY: ruby ruby_parallel
+.DEFAULT_GOAL := all
+.PHONY: all parallel
 
 export RAILS_ENV=test
 
