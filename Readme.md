@@ -17,19 +17,20 @@ to define the folder where the contexts are (same as the Makefile setup).
 Examples: `make setup_context/todo dest=makefiles` or make `setup_context/test/unit/ruby dest=makefiles`.
 
 These are the available contexts:
-
-- *[git]*                   Tasks for git when using tagged commit messages like in [Karma](http://karma-runner.github.io/0.10/dev/git-commit-msg.html)
-- *[lint]*                  Tasks for lint all available languages
-- *[lint/elixir]*           Tasks for lint elixir
-- *[lint/javascript]*       Tasks for lint javascript
-- *[lint/ruby]*             Tasks for lint ruby
-- *[test/acceptance]*       Tasks for run acceptance tests (cucumber)
-- *[test]*                  Tasks run both unit and acceptance tests
-- *[test/unit]*             Tasks run unit tests for all available languages
-- *[test/unit/elixir]*      Tasks run unit tests for elixir
-- *[test/unit/javascript]*  Tasks run unit tests for javascript
-- *[test/unit/ruby]*        Tasks run unit tests for ruby
-- *[todo]*                  Tasks for searching for TODO in the project
+| Context               | Description                                                                                                                 | Setup                                     |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| git					          | Tasks for git when using tagged commit messages like in [Karma](http://karma-runner.github.io/0.10/dev/git-commit-msg.html) |`make setup_context/git`                   |
+| lint					        | Tasks for lint all available languages                                                                                      |`make setup_context/lint`                  |
+| lint/elixir					  | Tasks for lint elixir                                                                                                       |`make setup_context/lint/elixir`           |
+| lint/javascript				| Tasks for lint javascript                                                                                                   |`make setup_context/lint/javascript`       |
+| lint/ruby					    | Tasks for lint ruby                                                                                                         |`make setup_context/lint/ruby`             |
+| test					        | Tasks run both unit and acceptance tests                                                                                    |`make setup_context/test`                  |
+| test/unit					    | Tasks run unit tests for all available languages                                                                            |`make setup_context/test/unit`             |
+| test/unit/elixir			| Tasks run unit tests for elixir                                                                                             |`make setup_context/test/unit/elixir`      |
+| test/unit/javascript	| Tasks run unit tests for javascript                                                                                         |`make setup_context/test/unit/javascript`  |
+| test/unit/ruby				| Tasks run unit tests for ruby                                                                                               |`make setup_context/test/unit/ruby`        |
+| test/acceptance				| Tasks for run acceptance tests (cucumber)                                                                                   |`make setup_context/test/acceptance`       |
+| todo					        | Tasks for searching for TODO in the project                                                                                 |`make setup_context/git`                   |
 
 # Expanding
 
