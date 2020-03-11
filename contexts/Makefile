@@ -4,15 +4,7 @@ contexts_path = $(dir $(realpath $(MAKEFILE_LIST)))
 base_path = $(realpath $(contexts_path)/../)
 setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
 
-define CONTEXTS
-	git \
-	lint \
-	test/unit/ruby \
-	test/unit/javascript \
-	test/unit/elixir \
-	todo
-endef
-
+CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*contexts/.*/Makefile" | cut -d/ -f3- | sed -E "s/\/Makefile//")
 CONTEXTS_TASKS = $(sort $(addsuffix /%,$(CONTEXTS)))
 CONTEXTS_HELP = $(sort $(addsuffix /help,$(CONTEXTS)))
 CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
