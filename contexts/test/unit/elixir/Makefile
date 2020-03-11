@@ -8,4 +8,4 @@
 
 ## all (default): run elixir unit tests
 all: mix
-	@cd $(basepath) && mix test
+	@cd $(base_path) && mix test
