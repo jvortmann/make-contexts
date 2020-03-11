@@ -1,6 +1,8 @@
+-include prerequisites/tasks.mk
+
 .DEFAULT_GOAL := help
 
-contexts_path = $(dir $(realpath $(MAKEFILE_LIST)))
+contexts_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
 export base_path = $(realpath $(contexts_path)/../)
 setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
 
@@ -31,6 +33,8 @@ how_to:
 	@echo " - 'make {context}/{subcontext}/{task}' (ex.: 'make test/unit/ruby')\truns a specific task inside a sub-context"
 	@echo
 
-## setup_tasks: setup this Makefile to project home folder
-setup_tasks:
-	ln -sfv $(abspath $(MAKEFILE_LIST)) $(base_path)/Makefile
+## setup_makefile: symlink this Makefile into project home
+setup_makefile: $(base_path)/Makefile
+
+$(base_path)/Makefile:
+	@ln -sfv $(word 1,$(abspath $(MAKEFILE_LIST))) $(base_path)/Makefile
