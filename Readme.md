@@ -12,9 +12,8 @@ Then run `make -C makefiles setup_makefile` to symlink it to your project root.
 
 # Contexts
 
-Contexts can be setup locally using `make setup_context/{context} dest=makefiles` where the variable 'dest' is needed
-to define the folder where the contexts are (same as the Makefile setup).
-Examples: `make setup_context/todo dest=makefiles` or make `setup_context/test/unit/ruby dest=makefiles`.
+Contexts can be setup locally using `make setup_context/{context}`.
+Examples: `make setup_context/todo` or make `setup_context/test/unit/ruby`.
 
 These are the available contexts:
 | Context               | Description                                                                                                                 | Setup                                     |

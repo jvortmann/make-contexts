@@ -16,8 +16,6 @@ CONTEXTS_TASKS = $(sort $(addsuffix /%,$(CONTEXTS)))
 CONTEXTS_HELP = $(sort $(addsuffix /help,$(CONTEXTS)))
 CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 
-DEST_ERROR = $(error "Destination folder was not defined. Use 'dest="base_folder_for_context"' to point to where the contexts are")
-
 .PHONY: $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to setup_makefile update_makefile setup_context prerequisites
 
 $(CONTEXTS_TASKS):
@@ -58,10 +56,9 @@ update_makefile:
 context = $(shell echo $@ | sed -E "s/^setup_context\///")
 ## setup_context/{context}: setup specific context's Makefile locally
 setup_context/%: 
-	$(if ${dest},,${DEST_ERROR})
 	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(context)/Makefile -o /tmp/contexts/$(context)/Makefile -f --create-dirs 2>/dev/null \
-			&& mkdir -p $(dest)/contexts/$(context)/ 2>&1 >/dev/null \
-			&& mv /tmp/contexts/$(context)/Makefile $(dest)/contexts/$(context)/Makefile 2>&1 >/dev/null \
-			&& echo "Context downloaded to $(dest)/contexts/$(context)/" \
+			&& mkdir -p $(contexts_path)/contexts/$(context)/ 2>&1 >/dev/null \
+			&& mv /tmp/contexts/$(context)/Makefile $(contexts_path)/contexts/$(context)/Makefile 2>&1 >/dev/null \
+			&& echo "Context downloaded to $(contexts_path)/contexts/$(context)/" \
 			|| echo "Context not found") \
 		&& rm -r /tmp/contexts/$(context) 2>&1 >/dev/null \
