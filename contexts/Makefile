@@ -2,7 +2,7 @@
 
 ##>> Makefile
 
-contexts_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
+export contexts_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
 main_makefile = $(word 1,$(abspath $(MAKEFILE_LIST)))
 context_file = $(main_makefile)
 context_name = main
@@ -18,7 +18,7 @@ CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 
 DEST_ERROR = $(error "Destination folder was not defined. Use 'dest="base_folder_for_context"' to point to where the contexts are")
 
-.PHONY: $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to setup_makefile update_makefile setup_context
+.PHONY: $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to setup_makefile update_makefile setup_context prerequisites
 
 $(CONTEXTS_TASKS):
 	@$(MAKE) $(@F) -C $(setup_folder)/$(@D)/
@@ -41,10 +41,15 @@ how_to:
 	@echo
 
 ## setup_makefile: symlink this Makefile into project home
-setup_makefile: $(base_path)/Makefile
+setup_makefile: $(base_path)/Makefile prerequisites
 
 $(base_path)/Makefile:
 	@ln -sfv $(main_makefile) $(base_path)/Makefile
+
+prerequisites: $(contexts_path)/prerequisites/elixir.mk $(contexts_path)/prerequisites/javascript.mk $(contexts_path)/prerequisites/ruby.mk $(contexts_path)/prerequisites/tasks.mk
+
+$(contexts_path)/prerequisites/%:
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/prerequisites/$(@F) -f 2>/dev/null
 
 ## update_makefile: download main Makefile latest version
 update_makefile:
