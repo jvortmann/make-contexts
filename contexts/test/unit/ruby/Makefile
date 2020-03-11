@@ -1,8 +1,6 @@
 -include ../../../prerequisites/tasks.mk
 -include ../../../prerequisites/ruby.mk
 
-base_path = $(abspath ../../../../)
-
 ##>> run unit tests for ruby
 
 .DEFAULT_GOAL := ruby

@@ -1,8 +1,6 @@
 -include ../../../prerequisites/tasks.mk
 -include ../../../prerequisites/elixir.mk
 
-base_path = $(abspath ../../../../)
-
 ##>> run unit tests for elixir
 
 .DEFAULT_GOAL := all
