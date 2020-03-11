@@ -2,16 +2,17 @@
 
 ##>> Makefile
 
-export contexts_path = $(addsuffix contexts,$(word 1,$(dir $(realpath $(MAKEFILE_LIST)))))
+export setup_path = $(word 1,$(dir $(realpath $(MAKEFILE_LIST))))
+export contexts_path = $(addsuffix contexts,$(setup_path))
 main_makefile = $(word 1,$(abspath $(MAKEFILE_LIST)))
 context_file = $(main_makefile)
 context_name = main
-setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
+setup_folder = $(addsuffix /contexts,$(lastword $(shell echo $(setup_path) | tr "/" " ")))
 export base_path = $(realpath $(contexts_path)/../../)
 
 -include $(contexts_path)/prerequisites/tasks.mk
 
-CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*contexts/.*/Makefile" | cut -d/ -f3- | sed -E "s/\/Makefile//")
+CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*$(setup_folder)/.*/Makefile" | cut -d/ -f4- | sed -E "s/\/Makefile//")
 CONTEXTS_TASKS = $(sort $(addsuffix /%,$(CONTEXTS)))
 CONTEXTS_HELP = $(sort $(addsuffix /help,$(CONTEXTS)))
 CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
@@ -55,7 +56,7 @@ update_makefile:
 
 context = $(shell echo $@ | sed -E "s/^setup_context\///")
 ## setup_context/{context}: setup specific context's Makefile locally
-setup_context/%: 
+setup_context/%:
 	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(context)/Makefile -o /tmp/contexts/$(context)/Makefile -f --create-dirs 2>/dev/null \
 			&& mkdir -p $(contexts_path)/$(context)/ 2>&1 >/dev/null \
 			&& mv /tmp/contexts/$(context)/Makefile $(contexts_path)/$(context)/Makefile 2>&1 >/dev/null \
