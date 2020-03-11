@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 
 contexts_path = $(dir $(realpath $(MAKEFILE_LIST)))
-base_path = $(realpath $(contexts_path)/../)
+export base_path = $(realpath $(contexts_path)/../)
 setup_folder = $(lastword $(shell echo $(contexts_path) | tr "/" " "))
 
 CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*contexts/.*/Makefile" | cut -d/ -f3- | sed -E "s/\/Makefile//")
