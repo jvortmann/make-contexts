@@ -3,13 +3,17 @@
 ##>> run unit tests for all languages
 
 .DEFAULT_GOAL := all
-.PHONY: all elixir javascript ruby
+LANGUAGES := $(shell find . -type f -name "Makefile" | grep ".*/.*/Makefile" | cut -d/ -f2- | sed -E "s/\/Makefile//")
 
-## all (default): run unit tests for all know languages
-all: elixir javascript ruby
+.PHONY: all $(LANGUAGES)
 
-## elixir: run all elixir unit tests
-## javascript: run all javascript unit tests
-## ruby: run all ruby unit tests
-elixir javascript ruby:
+## all (default): run unit tests for all available languages
+all: $(LANGUAGES)
+
+## {language}: run all unit tests for {language}
+$(LANGUAGES):
 	@$(MAKE) -C $(@)/
+
+## available: list available languages
+available:
+	@echo $(LANGUAGES)

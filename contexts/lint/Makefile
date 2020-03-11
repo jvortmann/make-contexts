@@ -3,13 +3,17 @@
 ##>> run lint for all languages
 
 .DEFAULT_GOAL := all
-.PHONY: all elixir javascript ruby
+LANGUAGES := $(shell find . -type f -name "Makefile" | grep ".*/.*/Makefile" | cut -d/ -f2- | sed -E "s/\/Makefile//")
 
-## all (default): run lint for all know languages
-all: elixir javascript ruby
+.PHONY: all $(LANGUAGES)
 
-## elixir: run elixir lint
-## javascript: run javascript lint
-## ruby: run ruby lint
-elixir javascript ruby:
+## all (default): run lint for all available languages
+all: $(LANGUAGES)
+
+## {language}: run lint for {language}
+$(LANGUAGES):
 	@$(MAKE) -C $(@)/
+
+## available: list available languages
+available:
+	@echo $(LANGUAGES)
