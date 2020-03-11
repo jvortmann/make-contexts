@@ -1,4 +1,4 @@
 .PHONY: bundle
 
 bundle:
-	@bundle
+	@cd $(base_path) && bundle

@@ -9,8 +9,8 @@
 
 ## all (default): run javascript unit tests
 all: yarn
-	@yarn test
+	@cd $(base_path) && yarn test
 
 ## legacy: run legacy javascript unit tests (using teaspoon gem)
 legacy: bundle
-	@bundle exec rake teaspoon
+	@cd $(base_path) && bundle exec rake teaspoon
