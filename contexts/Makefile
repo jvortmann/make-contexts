@@ -7,12 +7,13 @@ export contexts_path = $(addsuffix contexts,$(setup_path))
 main_makefile = $(word 1,$(abspath $(MAKEFILE_LIST)))
 context_file = $(main_makefile)
 context_name = main
-setup_folder = $(addsuffix /contexts,$(lastword $(shell echo $(setup_path) | tr "/" " ")))
+setup_folder = $(lastword $(shell echo $(setup_path) | tr "/" " "))
+contexts_folder = $(addsuffix /contexts,$(setup_folder))
 export base_path = $(realpath $(contexts_path)/../../)
 
 -include $(contexts_path)/prerequisites/tasks.mk
 
-CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*$(setup_folder)/.*/Makefile" | cut -d/ -f4- | sed -E "s/\/Makefile//")
+CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*$(contexts_folder)/.*/Makefile" | cut -d/ -f4- | sed -E "s/\/Makefile//")
 CONTEXTS_TASKS = $(sort $(addsuffix /%,$(CONTEXTS)))
 CONTEXTS_HELP = $(sort $(addsuffix /help,$(CONTEXTS)))
 CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
@@ -20,13 +21,13 @@ CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 .PHONY: $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to setup_makefile update_makefile setup_context prerequisites
 
 $(CONTEXTS_TASKS):
-	@$(MAKE) $(@F) -C $(setup_folder)/$(@D)/
+	@$(MAKE) $(@F) -C $(contexts_folder)/$(@D)/
 
 $(CONTEXTS):
-	@$(MAKE) -C $(setup_folder)/$@
+	@$(MAKE) -C $(contexts_folder)/$@
 
 $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION):
-	@$(MAKE) $(@F) -C $(setup_folder)/$(@D)/
+	@$(MAKE) $(@F) -C $(contexts_folder)/$(@D)/
 
 contexts_help: $(CONTEXTS_HELP) how_to
 contexts: $(CONTEXTS_DESCRIPTION) how_to
@@ -43,7 +44,7 @@ how_to:
 setup_makefile: $(base_path)/Makefile prerequisites
 
 $(base_path)/Makefile:
-	@ln -sfv $(main_makefile) $(base_path)/Makefile
+	@ln -sfv $(setup_folder)/Makefile $(base_path)/Makefile
 
 prerequisites: $(contexts_path)/prerequisites/elixir.mk $(contexts_path)/prerequisites/javascript.mk $(contexts_path)/prerequisites/ruby.mk $(contexts_path)/prerequisites/tasks.mk
 
