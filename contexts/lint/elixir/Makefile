@@ -8,4 +8,4 @@
 
 ## all (default): run lint for elixir files
 all: mix
-	@mix credo
+	@cd $(base_path) && mix credo

@@ -13,8 +13,8 @@ RUBOCOP = bundle exec rubocop
 
 ## all (default): run lint for ruby files
 all: bundle
-	@$(RUBOCOP) $(RUBY_FILES)
+	@cd $(base_path) && $(RUBOCOP) $(RUBY_FILES)
 
 ## autocorrect: run lint for ruby files and autocorrect errors
 autocorrect: bundle
-	@$(RUBOCOP) $(RUBY_FILES) --auto-correct
+	@cd $(base_path) && $(RUBOCOP) $(RUBY_FILES) --auto-correct
