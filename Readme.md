@@ -6,7 +6,7 @@ all contexts will be:
 curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/Makefile -o makefiles/Makefile --create-dirs
 ```
 
-Then run `make -C tasks setup_makefile` to symlink it to your project root.
+Then run `make -C makefiles setup_makefile` to symlink it to your project root.
 `make help` will list all available tasks of the main Makefile to setup and update it and also to setup the contexts.
 `make` (default) or `make contexts_help` will list all available contexts' help.
 
