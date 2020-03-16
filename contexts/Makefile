@@ -13,12 +13,12 @@ export base_path = $(realpath $(contexts_path)/../../)
 
 -include $(contexts_path)/prerequisites/tasks.mk
 
-CONTEXTS = $(shell find . -type f -name "Makefile" | grep ".*$(contexts_folder)/.*/Makefile" | cut -d/ -f4- | sed -E "s/\/Makefile//")
+CONTEXTS = $(shell find $(setup_path) -type f -name "Makefile" | grep "contexts" | sed -E 's/^.*\/contexts\/(.*)\/Makefile$$/\1/')
 CONTEXTS_TASKS = $(sort $(addsuffix /%,$(CONTEXTS)))
 CONTEXTS_HELP = $(sort $(addsuffix /help,$(CONTEXTS)))
 CONTEXTS_DESCRIPTION = $(sort $(addsuffix /description,$(CONTEXTS)))
 
-.PHONY: $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to setup_makefile update_makefile setup_context prerequisites
+.PHONY: $(CONTEXTS) $(CONTEXTS_HELP) $(CONTEXTS_DESCRIPTION) how_to setup_makefile update_makefile setup_context prerequisites contexts_help contexts
 
 $(CONTEXTS_TASKS):
 	@$(MAKE) $(@F) -C $(contexts_folder)/$(@D)/
