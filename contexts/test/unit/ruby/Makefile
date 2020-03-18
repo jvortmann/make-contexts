@@ -10,7 +10,7 @@ export RAILS_ENV=test
 
 ## all (default): run ruby unit tests
 all: bundle
-	@cd $(base_path) && bundle exec rspec spec --format Fuubar
+	@cd $(base_path) && bundle exec rspec spec
 
 ## parallel: run ruby unit tests in parallel using 'knapsack'
 parallel: bundle
