@@ -1,14 +1,18 @@
 -include ../prerequisites/tasks.mk
 
-##>> run both unit and acceptance tests
+##>> run tests
 
 .DEFAULT_GOAL := all
-.PHONY: all unit acceptance
+TYPES := $(shell find . -type f -name "Makefile" | grep "\./\(\w\+/\)\{1\}Makefile" | cut -d/ -f2- | sed -E "s/\/Makefile//")
+.PHONY: all $(TYPES)
 
-## all (default): run both unit and acceptance tests
-all: unit acceptance
+## all (default): run all available test types
+all: $(TYPES)
 
-## unit: run all unit tests
-## acceptance: run all funcional tests
-unit acceptance:
+## {type}: run all {type} tests
+$(TYPES):
 	@$(MAKE) -C $(@)/
+
+## available: list available languages
+available:
+	@echo $(TYPES)
