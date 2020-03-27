@@ -2,7 +2,7 @@
 
 export DISPLAY=:0
 
-cd ../../..
+cd "$1" || exit
 
 bundle exec rake parallel_tests:generate_cucumber_knapsack_file
 bundle exec rake assets:precompile

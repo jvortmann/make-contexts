@@ -15,4 +15,5 @@ all: acceptance
 
 ## acceptance: run all funcional tests
 acceptance: bundle yarn
-	./test_acceptance
+	./test_acceptance $(base_path)
+
