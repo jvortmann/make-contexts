@@ -8,4 +8,4 @@
 
 ## all (default): run lint for javascript files
 all: yarn
-	@cd $(base_path) yarn lint
+	@cd $(base_path) && yarn lint
