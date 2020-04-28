@@ -18,6 +18,7 @@ Examples: `make setup_context/todo` or make `setup_context/test/unit/ruby`.
 These are the available contexts:
 | Context               | Description                                                                                                                 | Setup                                     |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| gem					          | Tasks for managing gem release lifecycle                                                                                    |`make setup_context/gem`                   |
 | git					          | Tasks for git when using tagged commit messages like in [Karma](http://karma-runner.github.io/0.10/dev/git-commit-msg.html) |`make setup_context/git`                   |
 | lint					        | Tasks for lint all available languages                                                                                      |`make setup_context/lint`                  |
 | lint/elixir					  | Tasks for lint elixir                                                                                                       |`make setup_context/lint/elixir`           |
@@ -30,6 +31,7 @@ These are the available contexts:
 | test/unit/ruby				| Tasks run unit tests for ruby                                                                                               |`make setup_context/test/unit/ruby`        |
 | test/acceptance				| Tasks for run acceptance tests (cucumber)                                                                                   |`make setup_context/test/acceptance`       |
 | todo					        | Tasks for searching for TODO in the project                                                                                 |`make setup_context/git`                   |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
 
 # Expanding
 
