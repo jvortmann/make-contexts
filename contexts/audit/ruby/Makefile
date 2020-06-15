@@ -9,3 +9,6 @@
 ## all (default): run bundle audit
 all: bundle
 	@cd $(base_path) && bundle exec bundle audit --update
+
+ignore:
+	@cd $(base_path) && bundle exec bundle audit --update --ignore $(advisories)
