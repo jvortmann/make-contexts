@@ -30,6 +30,8 @@ These are the available contexts:
 | test/unit/javascript	| Tasks run unit tests for javascript                                                                                         |`make setup_context/test/unit/javascript`  |
 | test/unit/ruby				| Tasks run unit tests for ruby                                                                                               |`make setup_context/test/unit/ruby`        |
 | test/acceptance				| Tasks for run acceptance tests (cucumber)                                                                                   |`make setup_context/test/acceptance`       |
+| audit					        | Tasks for audit all available languages                                                                                     |`make setup_context/audit`                 |
+| audit/ruby					  | Tasks for audit ruby                                                                                                        |`make setup_context/audit/ruby`            |
 | todo					        | Tasks for searching for TODO in the project                                                                                 |`make setup_context/git`                   |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
 
