@@ -13,6 +13,12 @@ hack_pattern = "HACK"
 all_pattern = "[A-Z]+"
 type := all
 
+red := \033[31m
+green := \033[32m
+yellow := \033[33m
+pink := \033[35m
+cyan := \033[36m
+
 define clean_filter_todos
 	rg "# $(1):.*$$" --color never --no-heading -o -n --column
 endef
@@ -33,23 +39,23 @@ quickfix: rg
 
 ## todo: list all TODO
 todo: rg
-	@cd $(base_path) && $(call filter_todos,$(todo_pattern),\033[36m) || echo " NONE"
+	@cd $(base_path) && $(call filter_todos,$(todo_pattern),$(cyan)) || echo " NONE"
 
 ## important: list all IMPORTANT
 important: rg
-	@cd $(base_path) && $(call filter_todos,$(important_pattern),\033[31m) || echo " NONE"
+	@cd $(base_path) && $(call filter_todos,$(important_pattern),$(red)) || echo " NONE"
 
 ## warning: list all WARNING
 warning: rg
-	@cd $(base_path) && $(call filter_todos,$(warning_pattern),\033[33m) || echo " NONE"
+	@cd $(base_path) && $(call filter_todos,$(warning_pattern),$(yellow)) || echo " NONE"
 
 ## note: list all NOTE
 note: rg
-	@cd $(base_path) && $(call filter_todos,$(note_pattern),\033[32m) || echo " NONE"
+	@cd $(base_path) && $(call filter_todos,$(note_pattern),$(green)) || echo " NONE"
 
 ## hack: list all HACK
 hack: rg
-	@cd $(base_path) && $(call filter_todos,$(hack_pattern),\033[35m) || echo " NONE"
+	@cd $(base_path) && $(call filter_todos,$(hack_pattern),$(pink)) || echo " NONE"
 
 .PHONY:
 rg:
