@@ -17,7 +17,7 @@ type := all
 red := \033[31m
 green := \033[32m
 yellow := \033[33m
-pink := \033[35m
+purple := \033[95m
 cyan := \033[36m
 orange := \033[91m
 
@@ -57,7 +57,7 @@ note: rg
 
 ## hack: list all HACK
 hack: rg
-	@cd $(base_path) && $(call filter_todos,$(hack_pattern),$(pink)) || echo " NONE"
+	@cd $(base_path) && $(call filter_todos,$(hack_pattern),$(purple)) || echo " NONE"
 
 ## fix: list all FIX
 fix: rg
