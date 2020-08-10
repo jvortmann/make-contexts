@@ -10,6 +10,7 @@ important_pattern = "IMPORTANT"
 warning_pattern = "WARNING"
 note_pattern = "NOTE"
 hack_pattern = "HACK"
+fix_pattern = "FIX"
 all_pattern = "[A-Z]+"
 type := all
 
@@ -18,6 +19,7 @@ green := \033[32m
 yellow := \033[33m
 pink := \033[35m
 cyan := \033[36m
+orange := \033[91m
 
 define clean_filter_todos
 	rg "# $(1):.*$$" --color never --no-heading -o -n --column
@@ -32,7 +34,7 @@ search:
 	@cd $(base_path) && $(call filter_todos,$(all_pattern),\033[37m) || echo " NONE"
 
 ## all: list all
-all: important warning todo note hack
+all: important warning fix todo note hack
 
 quickfix: rg
 	@cd $(base_path) && $(call clean_filter_todos,$($(type)_pattern)) || echo " NONE"
@@ -56,6 +58,10 @@ note: rg
 ## hack: list all HACK
 hack: rg
 	@cd $(base_path) && $(call filter_todos,$(hack_pattern),$(pink)) || echo " NONE"
+
+## fix: list all FIX
+fix: rg
+	@cd $(base_path) && $(call filter_todos,$(fix_pattern),$(orange)) || echo " NONE"
 
 .PHONY:
 rg:
