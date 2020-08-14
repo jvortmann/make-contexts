@@ -5,7 +5,7 @@
 .PHONY: tag build publish
 SHELL := /bin/bash
 
-APP = $(shell grep "name" $(base_path)/*.gemspec | sed -E 's/.* = "(.*)"/\1/')
+APP = $(shell grep "\.name" $(base_path)/*.gemspec | sed -E 's/.* = "(.*)"/\1/')
 VERSION = $(shell grep VERSION $(base_path)/lib/$(APP)/version.rb | sed -E 's/.* = "(.*)"/\1/')
 APP_VERSION = $(APP)-$(VERSION)
 GEM_FILE = $(APP_VERSION).gem
