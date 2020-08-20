@@ -5,7 +5,7 @@
 .PHONY: tag build publish
 SHELL := /bin/bash
 
-APP = $(shell grep "name" $(base_path)/*.gemspec | sed -E 's/.* = "(.*)"/\1/')
+APP = $(shell grep "\.name" $(base_path)/*.gemspec | sed -E 's/.* = "(.*)"/\1/')
 VERSION = $(shell grep VERSION $(base_path)/lib/$(APP)/version.rb | sed -E 's/.* = "(.*)"/\1/')
 APP_VERSION = $(APP)-$(VERSION)
 GEM_FILE = $(APP_VERSION).gem
@@ -21,7 +21,7 @@ ifeq ($(shell git tag -l $(VERSION)),)
 endif
 
 $(base_path)/$(GEM_FILE):
-	@gem build $(base_path)/$(APP).gemspec
+	@cd $(base_path) && gem build $(APP).gemspec -o $(GEM_FILE)
 
 ## build: build gem
 build: $(base_path)/$(GEM_FILE)
