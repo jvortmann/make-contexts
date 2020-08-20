@@ -21,7 +21,7 @@ ifeq ($(shell git tag -l $(VERSION)),)
 endif
 
 $(base_path)/$(GEM_FILE):
-	@cd $(base_path) && gem build $(base_path)/$(APP).gemspec -o $(base_path)/$(GEM_FILE)
+	@cd $(base_path) && gem build $(APP).gemspec -o $(GEM_FILE)
 
 ## build: build gem
 build: $(base_path)/$(GEM_FILE)
