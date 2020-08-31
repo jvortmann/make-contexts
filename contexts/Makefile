@@ -49,16 +49,16 @@ $(base_path)/Makefile:
 prerequisites: $(contexts_path)/prerequisites/elixir.mk $(contexts_path)/prerequisites/javascript.mk $(contexts_path)/prerequisites/ruby.mk $(contexts_path)/prerequisites/tasks.mk
 
 $(contexts_path)/prerequisites/%:
-	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/prerequisites/$(@F) -o $(contexts_path)/prerequisites/$(@F) -f --create-dirs 2>/dev/null
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/main/contexts/prerequisites/$(@F) -o $(contexts_path)/prerequisites/$(@F) -f --create-dirs 2>/dev/null
 
 ## update_makefile: download main Makefile latest version
 update_makefile:
-	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/Makefile -o $(main_makefile) -f 2>/dev/null
+	@curl https://raw.githubusercontent.com/jvortmann/make-contexts/main/contexts/Makefile -o $(main_makefile) -f 2>/dev/null
 
 context = $(shell echo $@ | sed -E "s/^setup_context\///")
 ## setup_context/{context}: setup specific context's Makefile locally
 setup_context/%:
-	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/$(context)/Makefile -o /tmp/contexts/$(context)/Makefile -f --create-dirs 2>/dev/null \
+	@(curl https://raw.githubusercontent.com/jvortmann/make-contexts/main/contexts/$(context)/Makefile -o /tmp/contexts/$(context)/Makefile -f --create-dirs 2>/dev/null \
 			&& mkdir -p $(contexts_path)/$(context)/ 2>&1 >/dev/null \
 			&& mv /tmp/contexts/$(context)/Makefile $(contexts_path)/$(context)/Makefile 2>&1 >/dev/null \
 			&& echo "Context downloaded to $(contexts_path)/$(context)/" \

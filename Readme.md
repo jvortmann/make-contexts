@@ -3,7 +3,7 @@
 Download the main Makefile using the following, where `makefiles` is the destination folder in your project where
 all contexts will be:
 ```
-curl https://raw.githubusercontent.com/jvortmann/make-contexts/master/contexts/Makefile -o makefiles/Makefile --create-dirs
+curl https://raw.githubusercontent.com/jvortmann/make-contexts/main/contexts/Makefile -o makefiles/Makefile --create-dirs
 ```
 
 Then run `make -C makefiles setup_makefile` to symlink it to your project root.
