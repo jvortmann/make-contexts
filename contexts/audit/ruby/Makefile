@@ -7,9 +7,10 @@
 .PHONY: all
 
 IGNORE_FILE := $(base_path)/.bundler-audit.ignore
+IGNORES := $(shell cut -d"\#" -f1 $(IGNORE_FILE))
 
 ifneq (,$(wildcard $(IGNORE_FILE)))
-	IGNORE_ARG := --ignore $(shell cat $(IGNORE_FILE))
+	IGNORE_ARG := --ignore $(IGNORES)
 endif
 
 ## all (default): run audit for ruby
