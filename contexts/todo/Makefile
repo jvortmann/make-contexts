@@ -15,23 +15,26 @@ all_pattern = "[A-Z]+"
 type := all
 
 red := \033[31m
+blue := \033[34m
 green := \033[32m
 yellow := \033[33m
 purple := \033[95m
 cyan := \033[36m
 orange := \033[91m
+bold := \033[37m
+reset := \033[0m
 
 define clean_filter_todos
 	rg "# $(1):.*$$" --color never --no-heading -o -n --column
 endef
 
 define filter_todos
-	$(call clean_filter_todos,$(1)) | sed -E 's/(.*):(.*):(.*):# ([[:upper:]]+): (.*)$$/\4 \1 \2 \3 "\5"/' | xargs -L1 printf "$(2)%-10s \033[34m%-s \033[33m%3d:%-3d \033[0m%s\n" | sort
+	$(call clean_filter_todos,$(1)) | sed -E 's/(.*):(.*):(.*):# ([[:upper:]]+): (.*)$$/\4 \1 \2 \3 "\5"/' | xargs -L1 printf "$(2)%-10s $(blue)%-s $(yellow)%3d:%-3d $(reset)%s\n" | sort
 endef
 
 ## search: search any TODO-like than can be found
 search:
-	@cd $(base_path) && $(call filter_todos,$(all_pattern),\033[37m) || echo " NONE"
+	@cd $(base_path) && $(call filter_todos,$(all_pattern),$(bold)) || echo " NONE"
 
 ## all: list all
 all: important warning fix todo note hack
