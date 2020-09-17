@@ -14,15 +14,15 @@ fix_pattern = "FIX"
 all_pattern = "[A-Z]+"
 type := all
 
-red := \033[31m
 blue := \033[34m
-green := \033[32m
-yellow := \033[33m
-purple := \033[95m
-cyan := \033[36m
-orange := \033[91m
 bold := \033[37m
+cyan := \033[36m
+green := \033[32m
+orange := \033[91m
+purple := \033[95m
+red := \033[31m
 reset := \033[0m
+yellow := \033[33m
 
 define clean_filter_todos
 	rg "# $(1):.*$$" --color never --no-heading -o -n --column
