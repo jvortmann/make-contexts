@@ -11,7 +11,7 @@ interval := $(last_tag)..$(head)
 changes_file := $(abspath /tmp/$(interval))
 annotation_file := $(abspath $(changes_file).annotation)
 
-feature_pattern = "feature:"
+feature_pattern = "(feature|feat):"
 fix_pattern = "fix:"
 doc_pattern = "doc:"
 chore_pattern = "chore:"
