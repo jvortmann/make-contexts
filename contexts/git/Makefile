@@ -17,11 +17,11 @@ doc_pattern = "doc:"
 chore_pattern = "chore:"
 refactor_pattern = "refactor:"
 test_pattern = "test:"
-improvements_pattern = "$(chore_pattern)\|$(refactor_pattern)"
+improvements_pattern = "$(chore_pattern)|$(refactor_pattern)"
 
 ERROR_EMPTY_TAG = $(error "Invalid Tag: '$(tag)'")
 
-filter_commit = grep $(1) $(2)
+filter_commit = grep -E $(1) $(2)
 format_commit = $(call filter_commit,$(1),$(2)) | cut -f2 -d: | sed -e "s/^/ -/"
 print_commits = echo $(1) >> $(4) && $(call format_commit,$(2),$(3)) >> $(4) && echo >> $(4)
 
