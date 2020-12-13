@@ -38,7 +38,10 @@ These are the available contexts:
 # Expanding
 
 Any `Makefile` that lives inside the `contexts` folder following the same structure, help and description messages should
-be displayed as available.
+be displayed as available when the following is added to the top of the file (adapted to location):
+```
+-include ../prerequisites/tasks.mk
+```
 
 Therefore, you can create your own `Makefile`s and run them with the same infrastructure.
 
